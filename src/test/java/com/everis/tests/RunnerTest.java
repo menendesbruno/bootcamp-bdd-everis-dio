@@ -9,7 +9,7 @@ import com.everis.util.Hooks;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features", tags = "@test", glue = {""}, 
-	monochrome = true, dryRun = false, plugin = { "json:target/cucumber.json", "rerun:target/rerun.txt" })
+	monochrome = true, plugin = { "json:target/cucumber.json", "rerun:target/rerun.txt" })
 public class RunnerTest {
 
 	@ClassRule

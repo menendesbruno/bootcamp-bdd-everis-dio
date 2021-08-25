@@ -27,7 +27,7 @@ import io.cucumber.core.backend.TestCaseState;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Hooks extends TestWatcher {
 
@@ -120,19 +120,25 @@ public class Hooks extends TestWatcher {
 	}
 	
 	public static void navigateToULRChrome(String url){
+
+		System.setProperty("webdriver.chrome.driver", "/home/bruno/chromedriver_linux64/chromedriver");
 		String downloadFilepath = System.getProperty("user.dir") + "/target/temp";
 		
 		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 		chromePrefs.put("download.default_directory", downloadFilepath);
 		chromePrefs.put("credentials_enable_service", false);
+
 		
 		ChromeOptions options = new ChromeOptions();
 		options.setExperimentalOption("prefs", chromePrefs);
+		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--disable-extensions");
+		options.addArguments("--no-sandbox");
 		options.addArguments("disable-infobars");
 		options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
 		
-		WebDriverManager.chromedriver().setup();
-		
+		//WebDriverManager.chromedriver().setup();
+
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		driver.navigate().to(url);
@@ -154,7 +160,7 @@ public class Hooks extends TestWatcher {
 		mobileEmulation.put("deviceName", "iPhone X");
 		options.setExperimentalOption("mobileEmulation", mobileEmulation);
 
-		WebDriverManager.chromedriver().setup();
+		//WebDriverManager.chromedriver().setup();
 		
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
